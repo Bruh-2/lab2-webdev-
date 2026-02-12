@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: jdbcclient
+    active: jdbctemplate  #Активный профиль (можно переключать: jdbc, jdbctemplate, jdbcclient)
 
   datasource:
     ds1:
