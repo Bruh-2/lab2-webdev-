@@ -15,32 +15,22 @@ public class JdbcTemplateStudentDao implements StudentDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcTemplateStudentDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    public JdbcTemplateStudentDao(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
     @Override
     public void save(Student student) {
-        jdbcTemplate.update(
-                "INSERT INTO students (name, email) VALUES (?, ?)",
-                student.getName(),
-                student.getEmail()
-        );
+        jdbcTemplate.update("INSERT INTO students (name, email) VALUES (?, ?)",
+                student.getName(), student.getEmail());
     }
 
     @Override
     public Optional<Student> findById(Long id) {
         List<Student> students = jdbcTemplate.query(
                 "SELECT * FROM students WHERE id = ?",
-                (rs, rowNum) ->
-                        new Student(
-                                rs.getLong("id"),
-                                rs.getString("name"),
-                                rs.getString("email")
-                        ),
-                id
-        );
-
+                (rs, rowNum) -> new Student(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("email")), id);
         return students.stream().findFirst();
     }
 
@@ -48,30 +38,20 @@ public class JdbcTemplateStudentDao implements StudentDao {
     public List<Student> findAll() {
         return jdbcTemplate.query(
                 "SELECT * FROM students",
-                (rs, rowNum) ->
-                        new Student(
-                                rs.getLong("id"),
-                                rs.getString("name"),
-                                rs.getString("email")
-                        )
-        );
+                (rs, rowNum) -> new Student(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("email")));
     }
 
     @Override
     public void update(Student student) {
-        jdbcTemplate.update(
-                "UPDATE students SET name = ?, email = ? WHERE id = ?",
-                student.getName(),
-                student.getEmail(),
-                student.getId()
-        );
+        jdbcTemplate.update("UPDATE students SET name=?, email=? WHERE id=?",
+                student.getName(), student.getEmail(), student.getId());
     }
 
     @Override
     public void deleteById(Long id) {
-        jdbcTemplate.update(
-                "DELETE FROM students WHERE id = ?",
-                id
-        );
+        jdbcTemplate.update("DELETE FROM students WHERE id=?", id);
     }
 }

@@ -1,22 +1,32 @@
 spring:
   profiles:
-    active: jdbc   # ← поменяй на jdbctemplate
+    active: jdbcclient
 
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    ds1:
+      jdbc-url: jdbc:h2:mem:testdb1;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+      hikari:
+        pool-name: DS1Pool
+        maximum-pool-size: 5
 
-    hikari:
-      maximum-pool-size: 5
-      minimum-idle: 2
-      pool-name: StudentHikariPool
+    ds2:
+      jdbc-url: jdbc:h2:mem:testdb2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+      hikari:
+        pool-name: DS2Pool
+        maximum-pool-size: 5
 
   h2:
     console:
       enabled: true
+      path: /h2-console
 
   sql:
     init:
       mode: always
+      schema-locations: classpath:schema.sql

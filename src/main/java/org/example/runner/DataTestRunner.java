@@ -1,6 +1,5 @@
 package org.example.runner;
 
-
 import org.example.dao.StudentDao;
 import org.example.model.Student;
 import org.springframework.boot.CommandLineRunner;
@@ -11,9 +10,7 @@ public class DataTestRunner implements CommandLineRunner {
 
     private final StudentDao studentDao;
 
-    public DataTestRunner(StudentDao studentDao) {
-        this.studentDao = studentDao;
-    }
+    public DataTestRunner(StudentDao studentDao) { this.studentDao = studentDao; }
 
     @Override
     public void run(String... args) {
